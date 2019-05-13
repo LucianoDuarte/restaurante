@@ -318,6 +318,7 @@ ControllerProduto controllerProduto = new ControllerProduto();
         jtfVAlorCusto.setText("");
         jtfValorVenda.setText("");
         carregarProdutos();
+        //teste
         JOptionPane.showMessageDialog(null, "Produto cadastrado com sucesso");
     }else{
         JOptionPane.showMessageDialog(null, "Falha ao cadastrar o Produto");
