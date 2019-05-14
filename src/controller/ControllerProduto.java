@@ -26,6 +26,18 @@ public class ControllerProduto {
     public ArrayList<ModelProduto> retornarProdutosController() {
         return this.dAOProduto.retornarProdutosDAO();
     }
+
+    public boolean excluirProdutoController(int codigo) {
+        return this.dAOProduto.excluirProdutoDAO(codigo);
+    }
+
+    public ModelProduto retornarProdutoController(int codigo) {
+       return this.dAOProduto.retornarProdutoDAO(codigo);
+    }
+
+    public boolean atualizarProdutoController(ModelProduto modelProduto) {
+        return this.dAOProduto.atualizarProdutoDAO(modelProduto);
+    }
     
    
 }

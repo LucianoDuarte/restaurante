@@ -18,51 +18,44 @@ import model.ModelProduto;
  * @author FLUFG
  */
 public class ViewProduto extends javax.swing.JFrame {
-ModelProduto modelProduto = new ModelProduto();
-ControllerProduto controllerProduto = new ControllerProduto();
 
+    ModelProduto modelProduto = new ModelProduto();
+    ControllerProduto controllerProduto = new ControllerProduto();
 
     ArrayList<ModelProduto> listaModelProdutos = new ArrayList<>();
-            
- 
+    String salvarAlterar;
+
     /**
      * Creates new form ViewProduto
      */
     public ViewProduto() {
         initComponents();
         carregarProdutos();
-        
-        
+
     }
-    
-    private void carregarProdutos(){
+
+    private void carregarProdutos() {
         listaModelProdutos = controllerProduto.retornarProdutosController();
-        
+
         DefaultTableModel modelo = (DefaultTableModel) jtProdutos.getModel();
         modelo.setNumRows(0);
         
+
         int cont = listaModelProdutos.size();
-        
+
         for (int i = 0; i < cont; i++) {
-            
+
             modelo.addRow(new Object[]{
                 listaModelProdutos.get(i).getId(),
                 listaModelProdutos.get(i).getNome(),
                 listaModelProdutos.get(i).getValorCusto(),
                 listaModelProdutos.get(i).getValorVenda(),
                 listaModelProdutos.get(i).getEstoque()
-                
-            
+
             });
-        
+
         }
-        
-        
-        
-        
-        
-              
-        
+
     }
 
     /**
@@ -89,9 +82,9 @@ ControllerProduto controllerProduto = new ControllerProduto();
         jScrollPane1 = new javax.swing.JScrollPane();
         jtProdutos = new javax.swing.JTable();
         jbCancelar = new javax.swing.JButton();
-        jbNovo = new javax.swing.JButton();
         jbSalvar = new javax.swing.JButton();
         jbAlterar = new javax.swing.JButton();
+        jbExcluir = new javax.swing.JButton();
 
         jButton5.setText("jButton5");
 
@@ -181,7 +174,7 @@ ControllerProduto controllerProduto = new ControllerProduto();
                                 .addComponent(jLabel5)))
                         .addGap(44, 44, 44))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 1, Short.MAX_VALUE)
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                 .addComponent(jtfCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -220,14 +213,12 @@ ControllerProduto controllerProduto = new ControllerProduto();
                 .addContainerGap(67, Short.MAX_VALUE))
         );
 
-        jbCancelar.setText("Cancelar");
+        jbCancelar.setText("Limpar");
         jbCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbCancelarActionPerformed(evt);
             }
         });
-
-        jbNovo.setText("Novo");
 
         jbSalvar.setText("Salvar");
         jbSalvar.addActionListener(new java.awt.event.ActionListener() {
@@ -243,6 +234,13 @@ ControllerProduto controllerProduto = new ControllerProduto();
             }
         });
 
+        jbExcluir.setText("Excluir");
+        jbExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbExcluirActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -255,28 +253,26 @@ ControllerProduto controllerProduto = new ControllerProduto();
                         .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
                         .addGap(20, 20, 20)
-                        .addComponent(jbCancelar)
-                        .addGap(39, 39, 39)
-                        .addComponent(jbNovo)
-                        .addGap(26, 26, 26)
-                        .addComponent(jbAlterar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jbSalvar)
-                        .addGap(21, 21, 21))))
+                        .addComponent(jbCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(29, 29, 29)
+                        .addComponent(jbAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jbExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(123, 123, 123)
+                        .addComponent(jbSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jbCancelar)
-                        .addComponent(jbNovo)
-                        .addComponent(jbAlterar))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jbSalvar)
-                        .addContainerGap())))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jbCancelar)
+                    .addComponent(jbAlterar)
+                    .addComponent(jbExcluir)
+                    .addComponent(jbSalvar))
+                .addGap(11, 11, 11))
         );
 
         pack();
@@ -297,43 +293,100 @@ ControllerProduto controllerProduto = new ControllerProduto();
 
     private void jbAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbAlterarActionPerformed
         // TODO add your handling code here:
+
+        modelProduto = new ModelProduto();
+        int linha = jtProdutos.getSelectedRow();
+        int codigo = 0;
+
+        if (linha < 0) {
+            JOptionPane.showMessageDialog(null, "Selecione um produto na tabela!");
+            
+
+        } else {
+            codigo = (Integer) jtProdutos.getValueAt(linha, 0);
+            modelProduto = controllerProduto.retornarProdutoController(codigo);
+            
+            jtfCodigo.setText(modelProduto.getId()+"");
+            jtfNomeProduto.setText(modelProduto.getNome());
+            jtfQtdEstoque.setText(modelProduto.getEstoque()+"");
+            jtfVAlorCusto.setText(modelProduto.getValorCusto()+"");
+            jtfValorVenda.setText(modelProduto.getValorVenda()+"");
+                    
+        }
+
+
     }//GEN-LAST:event_jbAlterarActionPerformed
 
     private void jbSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSalvarActionPerformed
         // botão salvar
 
         modelProduto = new ModelProduto();
-        
+
         modelProduto.setNome(jtfNomeProduto.getText());
         modelProduto.setValorCusto(new BigDecimal(jtfVAlorCusto.getText()));
         modelProduto.setValorVenda(new BigDecimal(jtfValorVenda.getText()));
         modelProduto.setEstoque(Integer.parseInt(jtfQtdEstoque.getText()));
-         
-    int salvarProdutoController = controllerProduto.salvarProdutoController(modelProduto);
-    
-    if (salvarProdutoController > 0){
-        jtfCodigo.setText("");
-        jtfNomeProduto.setText("");
-        jtfQtdEstoque.setText("");
-        jtfVAlorCusto.setText("");
-        jtfValorVenda.setText("");
-        carregarProdutos();
-        //teste
-        JOptionPane.showMessageDialog(null, "Produto cadastrado com sucesso");
-    }else{
-        JOptionPane.showMessageDialog(null, "Falha ao cadastrar o Produto");
         
-    }
-        
-        
-        
+        if (salvarAlterar.equals("salvar")){
+            
+          int salvarProdutoController = controllerProduto.salvarProdutoController(modelProduto);
 
-        
+        if (salvarProdutoController > 0) {
+            jtfCodigo.setText("");
+            jtfNomeProduto.setText("");
+            jtfQtdEstoque.setText("");
+            jtfVAlorCusto.setText("");
+            jtfValorVenda.setText("");
+            carregarProdutos();
+            JOptionPane.showMessageDialog(null, "Produto cadastrado com sucesso");
+        } else {
+            JOptionPane.showMessageDialog(null, "Falha ao cadastrar o Produto");
+
+        }
+ 
+            
+        }else{ 
+            
+            controllerProduto.atualizarProdutoController(modelProduto);
+            
+        }
+
+     
+
     }//GEN-LAST:event_jbSalvarActionPerformed
 
     private void jtfVAlorCustoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfVAlorCustoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jtfVAlorCustoActionPerformed
+
+    private void jbExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbExcluirActionPerformed
+        // TODO add your handling code here:
+
+        int linha = jtProdutos.getSelectedRow();
+        int codigo = 0;
+
+        if (linha < 0) {
+            JOptionPane.showMessageDialog(null, "Selecione um produto na tabela!");
+
+        } else {
+
+            //pega o nome do produto
+            String nome = (String) jtProdutos.getValueAt(linha, 1);
+
+            int opcao = JOptionPane.showConfirmDialog(this, "Tem certeza que deseja excluir o produto: " + nome, "Atenção", JOptionPane.YES_NO_CANCEL_OPTION);
+
+            if (opcao == JOptionPane.OK_OPTION) {
+
+                codigo = (Integer) jtProdutos.getValueAt(linha, 0);
+                controllerProduto.excluirProdutoController(codigo);
+                JOptionPane.showMessageDialog(null, "Produto exluido com sucesso!");
+                carregarProdutos();
+            }
+
+        }
+
+
+    }//GEN-LAST:event_jbExcluirActionPerformed
 
     /**
      * @param args the command line arguments
@@ -381,7 +434,7 @@ ControllerProduto controllerProduto = new ControllerProduto();
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton jbAlterar;
     private javax.swing.JButton jbCancelar;
-    private javax.swing.JButton jbNovo;
+    private javax.swing.JButton jbExcluir;
     private javax.swing.JButton jbSalvar;
     private javax.swing.JTable jtProdutos;
     private javax.swing.JTextField jtfCodigo;
