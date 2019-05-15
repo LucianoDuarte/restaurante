@@ -225,7 +225,7 @@ public class ViewProduto extends javax.swing.JFrame {
                     .addComponent(jtfQtdEstoque, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(38, 38, 38)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(61, Short.MAX_VALUE))
+                .addContainerGap(58, Short.MAX_VALUE))
         );
 
         jbCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/imagens/icons 20/icons8-adicionar-filled-50.png"))); // NOI18N
