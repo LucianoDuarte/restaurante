@@ -1,4 +1,4 @@
-package conexao;
+package conexoes;
 
 /*
  * To change this template, choose Tools | Templates

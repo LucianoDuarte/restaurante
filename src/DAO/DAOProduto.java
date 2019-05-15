@@ -5,7 +5,7 @@
  */
 package DAO;
 
-import conexao.ConexaoMySql;
+import conexoes.ConexaoMySql;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
@@ -120,7 +120,9 @@ public class DAOProduto extends ConexaoMySql {
         
         try {
             this.conectar();
-            return this.executarUpdateDeleteSQL("update tbl_produto  set pro_nome ='"+modelProduto.getNome()+"', pro_valor_custo='"+modelProduto.getValorCusto()+"', pro_valor_venda='"+modelProduto.getValorVenda()+"', pro_estoque='"+modelProduto.getEstoque()+"'");
+            
+           
+            return this.executarUpdateDeleteSQL("update tbl_produto  set pro_nome ='"+modelProduto.getNome()+"', pro_valor_custo='"+modelProduto.getValorCusto()+"', pro_valor_venda='"+modelProduto.getValorVenda()+"', pro_estoque='"+modelProduto.getEstoque()+"' where pro_id='"+modelProduto.getId()+"'");
             
         } catch (Exception e) {
           

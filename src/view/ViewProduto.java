@@ -6,6 +6,7 @@
 package view;
 
 import controller.ControllerProduto;
+import util.BLFormatador;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
@@ -23,7 +24,9 @@ public class ViewProduto extends javax.swing.JFrame {
     ControllerProduto controllerProduto = new ControllerProduto();
 
     ArrayList<ModelProduto> listaModelProdutos = new ArrayList<>();
-    String salvarAlterar;
+    String salvarAlterar = "salvar";
+     BLFormatador bFormatador = new BLFormatador();
+   
 
     /**
      * Creates new form ViewProduto
@@ -31,6 +34,9 @@ public class ViewProduto extends javax.swing.JFrame {
     public ViewProduto() {
         initComponents();
         carregarProdutos();
+        jtfCodigo.setEditable(false);
+        jtfCodigo.setFocusable(false);
+      
 
     }
 
@@ -94,6 +100,8 @@ public class ViewProduto extends javax.swing.JFrame {
 
         jLabel2.setText("Nome do Produto");
 
+        jtfCodigo.setBackground(new java.awt.Color(204, 204, 204));
+
         jLabel3.setText("Valor de Custo");
 
         jLabel4.setText("Valor de Venda");
@@ -105,10 +113,20 @@ public class ViewProduto extends javax.swing.JFrame {
                 jtfValorVendaActionPerformed(evt);
             }
         });
+        jtfValorVenda.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jtfValorVendaKeyReleased(evt);
+            }
+        });
 
         jtfVAlorCusto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jtfVAlorCustoActionPerformed(evt);
+            }
+        });
+        jtfVAlorCusto.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jtfVAlorCustoKeyReleased(evt);
             }
         });
 
@@ -174,17 +192,14 @@ public class ViewProduto extends javax.swing.JFrame {
                                 .addComponent(jLabel5)))
                         .addGap(44, 44, 44))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(jtfCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jtfNomeProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 412, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel2)
-                                .addGap(329, 329, 329)))))
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel2)
+                        .addGap(329, 329, 329))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jtfCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jtfNomeProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 412, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -210,9 +225,10 @@ public class ViewProduto extends javax.swing.JFrame {
                     .addComponent(jtfQtdEstoque, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(38, 38, 38)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(67, Short.MAX_VALUE))
+                .addContainerGap(61, Short.MAX_VALUE))
         );
 
+        jbCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/imagens/icons 20/icons8-adicionar-filled-50.png"))); // NOI18N
         jbCancelar.setText("Limpar");
         jbCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -220,6 +236,7 @@ public class ViewProduto extends javax.swing.JFrame {
             }
         });
 
+        jbSalvar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/imagens/icons 20/icons8-salvar-filled-50.png"))); // NOI18N
         jbSalvar.setText("Salvar");
         jbSalvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -227,6 +244,7 @@ public class ViewProduto extends javax.swing.JFrame {
             }
         });
 
+        jbAlterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/imagens/icons 20/icons8-editar-filled-50.png"))); // NOI18N
         jbAlterar.setText("Alterar");
         jbAlterar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -234,6 +252,7 @@ public class ViewProduto extends javax.swing.JFrame {
             }
         });
 
+        jbExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/imagens/icons 20/icons8-excluir-filled-50.png"))); // NOI18N
         jbExcluir.setText("Excluir");
         jbExcluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -289,6 +308,14 @@ public class ViewProduto extends javax.swing.JFrame {
 
     private void jbCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCancelarActionPerformed
         // TODO add your handling code here:
+        jtfCodigo.setText("");
+            jtfNomeProduto.setText("");
+            jtfQtdEstoque.setText("");
+            jtfVAlorCusto.setText("");
+            jtfValorVenda.setText("");
+            
+            salvarAlterar = "salvar";
+        
     }//GEN-LAST:event_jbCancelarActionPerformed
 
     private void jbAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbAlterarActionPerformed
@@ -311,6 +338,7 @@ public class ViewProduto extends javax.swing.JFrame {
             jtfQtdEstoque.setText(modelProduto.getEstoque()+"");
             jtfVAlorCusto.setText(modelProduto.getValorCusto()+"");
             jtfValorVenda.setText(modelProduto.getValorVenda()+"");
+            salvarAlterar = "alterar";
                     
         }
 
@@ -345,9 +373,28 @@ public class ViewProduto extends javax.swing.JFrame {
         }
  
             
-        }else{ 
+        }else{ //alterar
             
-            controllerProduto.atualizarProdutoController(modelProduto);
+            modelProduto.setId(Integer.parseInt(jtfCodigo.getText()));
+            if(controllerProduto.atualizarProdutoController(modelProduto)){
+                
+            carregarProdutos();
+            
+            jtfCodigo.setText("");
+            jtfNomeProduto.setText("");
+            jtfQtdEstoque.setText("");
+            jtfVAlorCusto.setText("");
+            jtfValorVenda.setText("");
+            
+            JOptionPane.showMessageDialog(null, "Produto alterado com Sucesso", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+                 
+            }else{
+                JOptionPane.showMessageDialog(this, "Erro ao alterar o produto!","Erro",JOptionPane.ERROR_MESSAGE);
+                
+            }
+           
+           salvarAlterar = "salvar";
+                   
             
         }
 
@@ -387,6 +434,26 @@ public class ViewProduto extends javax.swing.JFrame {
 
 
     }//GEN-LAST:event_jbExcluirActionPerformed
+
+    private void jtfVAlorCustoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfVAlorCustoKeyReleased
+        // TODO add your handling code here:
+        
+        
+     bFormatador = new BLFormatador();
+    
+       jtfVAlorCusto.setText(bFormatador.converterVirgulaParaPonto(jtfVAlorCusto.getText()));
+    
+        
+    }//GEN-LAST:event_jtfVAlorCustoKeyReleased
+
+    private void jtfValorVendaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfValorVendaKeyReleased
+        // TODO add your handling code here:
+        
+        
+        bFormatador = new BLFormatador();
+    
+       jtfValorVenda.setText(bFormatador.converterVirgulaParaPonto(jtfValorVenda.getText()));
+    }//GEN-LAST:event_jtfValorVendaKeyReleased
 
     /**
      * @param args the command line arguments
