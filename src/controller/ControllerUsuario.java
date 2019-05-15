@@ -56,4 +56,6 @@ public class ControllerUsuario {
     public boolean excluirUsuarioController(int pUsuId){
         return this.daoUsuario.excluirUsuarioDAO(pUsuId);
     }
+
+   
 }

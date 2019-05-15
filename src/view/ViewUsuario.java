@@ -7,6 +7,7 @@ package view;
 
 import controller.ControllerUsuario;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.ModelUsuario;
 
@@ -15,12 +16,11 @@ import model.ModelUsuario;
  * @author FLUFG
  */
 public class ViewUsuario extends javax.swing.JFrame {
-    
+
     ModelUsuario modelUsuario = new ModelUsuario();
     ControllerUsuario controllerUsuario = new ControllerUsuario();
     ArrayList<ModelUsuario> listaUsuarios = new ArrayList<>();
-            
-        
+    String salvarAleterar = "salvar";
 
     /**
      * Creates new form ViewUsuario
@@ -29,28 +29,26 @@ public class ViewUsuario extends javax.swing.JFrame {
         initComponents();
         carregarUsuarios();
     }
-    
-    private void carregarUsuarios(){
-        
+
+    private void carregarUsuarios() {
+
         listaUsuarios = controllerUsuario.getListaUsuarioController();
-        
-        DefaultTableModel modelo = (DefaultTableModel) jtUsuario.getModel();        
+
+        DefaultTableModel modelo = (DefaultTableModel) jtUsuario.getModel();
         modelo.setNumRows(0);
         int cont = listaUsuarios.size();
-        
+
         for (int i = 0; i < cont; i++) {
-            
+
             modelo.addRow(new Object[]{
                 listaUsuarios.get(i).getUsuId(),
                 listaUsuarios.get(i).getUsuNome(),
-                listaUsuarios.get(i).getUsuLogin()       
-                
+                listaUsuarios.get(i).getUsuLogin()
+
             });
-            
+
         }
-        
-        
-        
+
     }
 
     /**
@@ -234,6 +232,7 @@ public class ViewUsuario extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCancelarActionPerformed
@@ -243,6 +242,19 @@ public class ViewUsuario extends javax.swing.JFrame {
 
     private void jbAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbAlterarActionPerformed
         // TODO add your handling code here:
+        salvarAleterar = "aleterar";
+        
+        int linha = jtUsuario.getSelectedRow();
+        int codigo = (int) jtUsuario.getValueAt(linha, 0);
+        
+        modelUsuario = controllerUsuario.getUsuarioController(codigo);
+        
+        jtfCodigo.setText(modelUsuario.getUsuId()+"");
+        jtfNome.setText(modelUsuario.getUsuNome());
+        jtfLogin.setText(modelUsuario.getUsuLogin());
+        jtfSenha.setText(modelUsuario.getUsuSenha());
+        jtfConfSenha.setText(modelUsuario.getUsuSenha());
+
 
     }//GEN-LAST:event_jbAlterarActionPerformed
 
@@ -253,6 +265,30 @@ public class ViewUsuario extends javax.swing.JFrame {
 
     private void jbSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSalvarActionPerformed
         // botão salvar
+
+        modelUsuario = new ModelUsuario();
+
+        if (jtfSenha.getPassword().equals(jtfConfSenha.getPassword())) {
+
+            modelUsuario.setUsuLogin(jtfLogin.getText());
+            modelUsuario.setUsuNome(jtfNome.getText());
+            modelUsuario.setUsuSenha(new String(jtfConfSenha.getPassword()));
+
+            if (salvarAleterar.equals("salvar")) {
+
+                if (controllerUsuario.salvarUsuarioController(modelUsuario) > 0) {
+                    JOptionPane.showMessageDialog(null, "Usuario cadastrado com sucesso");
+                    carregarUsuarios();
+                }
+            } else {//execulta o alterar
+
+            }
+
+        } else {
+            JOptionPane.showMessageDialog(this, "As senhas não conferem", "Alerta", JOptionPane.WARNING_MESSAGE);
+
+        }
+
 
     }//GEN-LAST:event_jbSalvarActionPerformed
 
