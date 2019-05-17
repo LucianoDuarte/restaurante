@@ -7,6 +7,7 @@ package view;
 
 import controller.ControllerUsuario;
 import java.util.ArrayList;
+import java.util.Arrays;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.ModelUsuario;
@@ -28,6 +29,17 @@ public class ViewUsuario extends javax.swing.JFrame {
     public ViewUsuario() {
         initComponents();
         carregarUsuarios();
+    }
+    
+    private void limpar(){
+        
+        jtfCodigo.setText("");
+        jtfNome.setText("");
+        jtfLogin.setText("");
+        jtfSenha.setText("");
+        jtfConfSenha.setText("");
+
+        
     }
 
     private void carregarUsuarios() {
@@ -237,19 +249,22 @@ public class ViewUsuario extends javax.swing.JFrame {
 
     private void jbCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCancelarActionPerformed
         // TODO add your handling code here:
+        
+        limpar();
+        salvarAleterar = "salvar";
 
     }//GEN-LAST:event_jbCancelarActionPerformed
 
     private void jbAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbAlterarActionPerformed
         // TODO add your handling code here:
         salvarAleterar = "aleterar";
-        
+
         int linha = jtUsuario.getSelectedRow();
         int codigo = (int) jtUsuario.getValueAt(linha, 0);
-        
+
         modelUsuario = controllerUsuario.getUsuarioController(codigo);
-        
-        jtfCodigo.setText(modelUsuario.getUsuId()+"");
+
+        jtfCodigo.setText(modelUsuario.getUsuId() + "");
         jtfNome.setText(modelUsuario.getUsuNome());
         jtfLogin.setText(modelUsuario.getUsuLogin());
         jtfSenha.setText(modelUsuario.getUsuSenha());
@@ -268,8 +283,9 @@ public class ViewUsuario extends javax.swing.JFrame {
 
         modelUsuario = new ModelUsuario();
 
-        if (jtfSenha.getPassword().equals(jtfConfSenha.getPassword())) {
-
+        if (Arrays.equals(jtfSenha.getPassword(), jtfConfSenha.getPassword())) {
+            
+           
             modelUsuario.setUsuLogin(jtfLogin.getText());
             modelUsuario.setUsuNome(jtfNome.getText());
             modelUsuario.setUsuSenha(new String(jtfConfSenha.getPassword()));
@@ -279,8 +295,16 @@ public class ViewUsuario extends javax.swing.JFrame {
                 if (controllerUsuario.salvarUsuarioController(modelUsuario) > 0) {
                     JOptionPane.showMessageDialog(null, "Usuario cadastrado com sucesso");
                     carregarUsuarios();
+                    limpar();
                 }
             } else {//execulta o alterar
+                
+                modelUsuario.setUsuId(Integer.parseInt(jtfCodigo.getText()));
+                controllerUsuario.atualizarUsuarioController(modelUsuario);
+                JOptionPane.showMessageDialog(null, "Usuario alterado com sucesso");
+                carregarUsuarios();
+                limpar();
+                salvarAleterar = "salvar";
 
             }
 
