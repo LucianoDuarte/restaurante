@@ -65,7 +65,6 @@ public class ViewLogin extends javax.swing.JFrame {
         jButton2.setText("Cancelar");
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/imagens/bl trasparente.png"))); // NOI18N
-        jLabel3.setText("jLabel3");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -125,6 +124,7 @@ public class ViewLogin extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jtfLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfLoginActionPerformed
@@ -145,6 +145,9 @@ public class ViewLogin extends javax.swing.JFrame {
         if(controllerUsuario.getUsuarioController(modelUsuario)){
             
             JOptionPane.showMessageDialog(null, "tem");
+        }else{
+             JOptionPane.showMessageDialog(null, "Login e/ou Senha incorretos!");
+            
         }
         
         
