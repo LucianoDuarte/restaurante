@@ -3,6 +3,9 @@ package DAO;
 import model.ModelUsuario;
 import conexoes.ConexaoMySql;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
+import sun.security.jgss.GSSCaller;
+import sun.security.jgss.GSSUtil;
 /**
 *
 * @author Luciano
@@ -156,5 +159,48 @@ public class DAOUsuario extends ConexaoMySql {
         }finally{
             this.fecharConexao();
         }
+    }
+
+    public boolean getUsuarioDAO(ModelUsuario modelUsuario) {
+              String log;
+              String senha;
+              
+        try {
+            this.conectar();
+            this.executarSQL(
+                "SELECT "
+                    + "usu_id,"
+                    + "usu_nome,"
+                    + "usu_login,"
+                    + "usu_senha"
+                 + " FROM"
+                     + " tbl_usuario"
+                        + " where usu_login = '"+modelUsuario.getUsuLogin()+"'"
+                                + " and usu_senha = '"+modelUsuario.getUsuSenha()+"'"
+                        
+                + ";"
+            );
+            
+            
+
+         
+              
+               if(getResultSet().next()){
+                    
+                    return true;
+                }else{
+                    return false;
+                }
+              
+            
+            
+           
+            
+        }catch(Exception e){
+            e.printStackTrace();
+             return false;
+        }finally{
+            this.fecharConexao();
+        }    
     }
 }
